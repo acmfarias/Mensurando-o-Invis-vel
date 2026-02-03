@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subnotificação de Crimes Cibernéticos — Mensurando o Invisível</title>
+  <meta name="description" content="Plataforma interativa de resultados da dissertação sobre subnotificação de crimes cibernéticos no Brasil. Universidade Federal de Pernambuco (UFPE).">
+  <meta name="author" content="Ana Carolina G.M. Farias">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero" id="inicio">
+    <div class="container-main">
+      <div class="animate-in animate-delay-1">
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Base de Dados 2021-2024
+        </span>
+      </div>
+
+      <!-- LARGER TITLES -->
+      <h1 class="hero-title animate-in animate-delay-2">
+        <span class="hero-title-sub">Subnotificação de</span>
+        <span class="hero-title-main">Crimes Cibernéticos</span>
+      </h1>
+
+      <p class="hero-author animate-in animate-delay-3">
+        Por <span class="hero-author-name">Ana Carolina G.M. Farias</span>
+      </p>
+      <p class="hero-institution animate-in animate-delay-3">
+        Mestranda do Programa de Ciência Política - UFPE
+      </p>
+
+      <!-- Description without "comprehensiva" -->
+      <p class="hero-description animate-in animate-delay-4">
+        Análise da subnotificação de crimes cibernéticos em <strong>4.836 municípios</strong> brasileiros. Dados baseados em estatísticas oficiais e modelagem preditiva.
+      </p>
+
+      <div class="hero-buttons animate-in animate-delay-4">
+        <a href="#mapa-section" class="btn-primary">Explorar Dados</a>
+        <a href="#metodologia" class="btn-secondary">Entender Metodologia</a>
+      </div>
+
+      <div class="hero-stats animate-in animate-delay-5">
+        <div class="stat-card">
+          <div class="stat-icon red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="stat-value red">83,6%</div>
+          <div class="stat-label">Taxa de Subnotificação</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="stat-value green">11,2M</div>
+          <div class="stat-label">BOs Previstos (2021-2024)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="stat-value purple">176,3M</div>
+          <div class="stat-label">População Coberta</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="stat-value cyan">20</div>
+          <div class="stat-label">Estados Analisados</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="section-divider">
+    <div class="divider-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-sticky">
+    <div class="container-main">
+      <div class="nav-inner">
+        <a href="#inicio" class="nav-link active">Início</a>
+        <a href="#panorama" class="nav-link">Panorama</a>
+        <a href="#mapa-section" class="nav-link">Mapa Interativo</a>
+        <a href="#metodologia" class="nav-link">Metodologia</a>
+        <a href="#resultados" class="nav-link">Resultados</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- PANORAMA - Updated with 2021-2024 totals -->
+    <section id="panorama">
+      <div class="container-main">
+        <div class="section-header reveal">
+          <h2>Panorama Nacional</h2>
+          <p>Visão geral dos indicadores de subnotificação de crimes cibernéticos no Brasil (2021-2024)</p>
+        </div>
+        <div class="panorama-grid reveal">
+          <div class="panorama-card">
+            <div class="card-icon cyan"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="panorama-value">1.842.860</div>
+            <div class="panorama-label">BOs Registrados (2021-2024)</div>
+            <div class="panorama-sublabel">Boletins de Ocorrência oficiais</div>
+          </div>
+          <div class="panorama-card">
+            <div class="card-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="panorama-value">9.363.617</div>
+            <div class="panorama-label">BOs Não Registrados</div>
+            <div class="panorama-sublabel">Estimativa de subnotificação (2021-2024)</div>
+          </div>
+          <div class="panorama-card">
+            <div class="card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="panorama-value">4.836</div>
+            <div class="panorama-label">Municípios</div>
+            <div class="panorama-sublabel">Cobertura nacional</div>
+          </div>
+          <div class="panorama-card">
+            <div class="card-icon pink"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            <div class="panorama-value">188,6B</div>
+            <div class="panorama-label">Transações PIX (2021-2024)</div>
+            <div class="panorama-sublabel">Volume total analisado</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA - Right after Panorama -->
+    <section id="mapa-section">
+      <div class="container-main">
+        <div class="section-header reveal">
+          <h2>Mapa Interativo</h2>
+          <p>Clique em um estado para explorar os dados estaduais e municipais</p>
+        </div>
+        <div class="reveal">
+          <div id="mapa-brasil"></div>
+          <div class="map-legend">
+            <div class="legend-item"><span class="legend-swatch" style="background:#3b82f6;"></span>Benchmark (SC)</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#fbbf24;"></span>&lt; 50%</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#f59e0b;"></span>50–65%</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#ef4444;"></span>65–75%</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#dc2626;"></span>75–85%</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#991b1b;"></span>&gt; 85%</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:#374151;"></span>Sem dados</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METODOLOGIA - Removed the sentence about "crimes não notificados" -->
+    <section id="metodologia" style="background: var(--clr-bg-secondary);">
+      <div class="container-main">
+        <div class="research-box reveal">
+          <div class="card-header">
+            <div class="card-icon cyan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <h3 class="card-title">Desenho de Pesquisa</h3>
+          </div>
+          <div class="research-content">
+            <p>A questão central desta pesquisa é a mensuração de um fenômeno não observável: a <strong>cifra oculta</strong> dos crimes cibernéticos. Para contornar este problema, este estudo emprega um desenho de pesquisa quantitativa baseado em um modelo de <a href="#benchmark">benchmark</a>.</p>
+          </div>
+          <div class="research-meta">
+            <div class="meta-item">
+              <div class="meta-title">Recorte Temporal</div>
+              <div class="meta-value">2021-2024 (quadriênio)</div>
+              <div class="meta-sublabel">A partir da consolidação operacional do PIX</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-title">Unidade de Análise</div>
+              <div class="meta-value">4.836 municípios brasileiros</div>
+              <div class="meta-sublabel">20 Estados + Distrito Federal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="benchmark-box reveal" id="benchmark">
+          <div class="benchmark-header">
+            <svg class="benchmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <h3 class="benchmark-title">Benchmark: Santa Catarina</h3>
+          </div>
+          <div class="benchmark-content">
+            <p>A investigação da subnotificação requer a definição de um referencial empírico que represente um cenário de <strong>alta eficiência na gestão da segurança pública</strong>. Santa Catarina foi selecionada como benchmark fundamentada em três evidências:</p>
+            <div class="benchmark-list">
+              <div class="benchmark-item">
+                <svg class="benchmark-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <p><span class="benchmark-item-title">Reconhecimento na literatura:</span> Estudos de Pereira Filho (2016) e Ribeiro e Longaray (2022) identificaram SC entre os estados mais eficientes em segurança pública</p>
+              </div>
+              <div class="benchmark-item">
+                <svg class="benchmark-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <p><span class="benchmark-item-title">Inovação institucional:</span> Sistema integrado CIASC unifica Polícias Civil, Militar, Científica e Bombeiros</p>
+              </div>
+              <div class="benchmark-item">
+                <svg class="benchmark-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <p><span class="benchmark-item-title">Crescimento expressivo:</span> Entre 2019-2024, salto de 2.497 para 135.174 registros anuais (+5.314%)</p>
+              </div>
+            </div>
+            <div class="benchmark-premise">
+              <p><strong>Premissa:</strong> Ao treinar o modelo com os critérios de Santa Catarina, projetamos quanto os outros Estados deveriam estar registrando se tivessem a mesma capacidade institucional.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="model-box reveal">
+          <div class="model-header">
+            <svg class="model-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            <h3 class="card-title">Modelo Estatístico: Regressão Binomial Negativa</h3>
+          </div>
+          <p class="model-description">A escolha pelo modelo de <a href="#">Regressão Binomial Negativa</a> justifica-se pela presença de <strong>superdispersão</strong> nos dados — quando a variância da variável dependente excede significativamente sua média, fenômeno comum em dados criminais.</p>
+          <div class="formula-container">
+            <code class="formula-text"><span class="func">log</span>(<span class="var">E[QNT_BO]</span>) = β₀ + β₁<span class="func">log</span>(<span class="var">POP</span>) + β₂<span class="func">log</span>(<span class="var">PIX</span>) + β₃<span class="var">EDU</span> + β₄<span class="var">URB</span> + β₅<span class="func">log</span>(<span class="var">PIB</span>) + β₆<span class="var">DP</span> + β₇<span class="var">CAP</span> + <span class="random">(1|MUNICIPIO_ID)</span></code>
+          </div>
+          <div class="var-legend">
+            <div class="var-item"><div class="var-tag cyan">POP</div><div class="var-label">População</div></div>
+            <div class="var-item"><div class="var-tag purple">PIX</div><div class="var-label">Volume de transações</div></div>
+            <div class="var-item"><div class="var-tag cyan">EDU</div><div class="var-label">Ensino superior</div></div>
+            <div class="var-item"><div class="var-tag green">URB</div><div class="var-label">Urbanização</div></div>
+            <div class="var-item"><div class="var-tag orange">PIB</div><div class="var-label">Per capita</div></div>
+            <div class="var-item"><div class="var-tag purple">DP</div><div class="var-label">Delegacia especializada</div></div>
+            <div class="var-item"><div class="var-tag cyan">CAP</div><div class="var-label">Capital</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section id="resultados">
+      <div class="container-main">
+        <div class="findings-box reveal">
+          <div class="findings-header">
+            <svg class="findings-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h3 class="card-title">Principais Achados</h3>
+          </div>
+          <div class="findings-list">
+            <div class="finding-item"><div class="finding-number">1</div><div class="finding-content"><h4>Subnotificação endêmica</h4><p>Nenhum Estado analisado apresentou subnotificação inferior a 48%. A taxa nacional média é de 83,56%.</p></div></div>
+            <div class="finding-item"><div class="finding-number">2</div><div class="finding-content"><h4>PIX como fator de risco</h4><p>A cada 1% de aumento no volume de transações PIX, há aumento de 0,22% nos registros de BO.</p></div></div>
+            <div class="finding-item"><div class="finding-number">3</div><div class="finding-content"><h4>Educação reduz subnotificação</h4><p>1 ponto percentual a mais na taxa de ensino superior está associado a 2,4% de aumento nos registros.</p></div></div>
+            <div class="finding-item"><div class="finding-number">4</div><div class="finding-content"><h4>Delegacias especializadas: efeito não significativo</h4><p>A mera existência de unidades físicas é insuficiente sem estratégias de capilaridade e integração.</p></div></div>
+          </div>
+        </div>
+
+        <div class="hypotheses-box reveal">
+          <div class="hypotheses-header">
+            <svg class="hypotheses-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <h3 class="card-title">Hipóteses e Resultados</h3>
+          </div>
+          <table class="hypotheses-table">
+            <thead><tr><th>Hipótese</th><th>Variável</th><th style="text-align:right;">Resultado</th></tr></thead>
+            <tbody>
+              <tr><td class="hyp-id">H1</td><td class="hyp-variable">Subnotificação presente (2021-2024)</td><td style="text-align:right;"><span class="hyp-badge confirmed">Confirmada</span></td></tr>
+              <tr><td class="hyp-id">H2</td><td class="hyp-variable">Quanto maior o volume de PIX, maior a incidência</td><td style="text-align:right;"><span class="hyp-badge confirmed">Confirmada</span></td></tr>
+              <tr><td class="hyp-id">H3</td><td class="hyp-variable">Quanto maior o nível educacional, maior a propensão à notificação</td><td style="text-align:right;"><span class="hyp-badge confirmed">Confirmada</span></td></tr>
+              <tr><td class="hyp-id">H4</td><td class="hyp-variable">Delegacias especializadas aumentam a notificação</td><td style="text-align:right;"><span class="hyp-badge refuted">Refutada</span></td></tr>
+              <tr><td class="hyp-id">H5</td><td class="hyp-variable">Quanto maior a urbanização, maior a propensão à notificação</td><td style="text-align:right;"><span class="hyp-badge confirmed">Confirmada</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sources-box reveal">
+          <div class="sources-header">
+            <svg class="sources-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <h3 class="card-title">Fontes de Dados</h3>
+          </div>
+          <div class="sources-grid">
+            <div class="source-card">
+              <div class="source-card-header cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><h4 class="source-card-title">Dados Oficiais</h4></div>
+              <ul class="source-list"><li>• Boletins de Ocorrência (BO) das Secretarias de Segurança Pública</li><li>• 20 Estados + Distrito Federal</li><li>• Total: 1.842.860 registros processados</li></ul>
+            </div>
+            <div class="source-card">
+              <div class="source-card-header purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><h4 class="source-card-title">Indicadores Socioeconômicos</h4></div>
+              <ul class="source-list"><li>• População, urbanização, educação: <strong>IBGE</strong></li><li>• Transações PIX: <strong>Banco Central do Brasil</strong></li><li>• PIB per capita: <strong>IBGE</strong></li></ul>
+            </div>
+          </div>
+          <div class="limitations-note">
+            <p><strong>Nota:</strong> Seis estados não foram incluídos na análise: <strong>Acre</strong>, <strong>Alagoas</strong> e <strong>Amapá</strong> (forneceram apenas crimes <em>cyber-dependent</em>); <strong>Amazonas</strong>, <strong>Rio de Janeiro</strong> e <strong>Tocantins</strong> (dados indisponíveis); <strong>Santa Catarina</strong> foi utilizado como benchmark.</p>
+          </div>
+        </div>
+
+        <div class="citation-box reveal">
+          <p class="citation-label">Como citar esta pesquisa:</p>
+          <div class="citation-text">FARIAS, A. C. G. M. Mensurando o Invisível: proposta de modelo para estimar a subnotificação de crimes cibernéticos no Brasil. Dissertação (Mestrado em Ciência Política) — Universidade Federal de Pernambuco, Recife, 2026.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="panel-overlay" id="panel-overlay"></div>
+  <aside class="state-panel" id="state-panel"></aside>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container-main">
+      <div class="footer-content">
+        <h3 class="footer-title">Mensurando o Invisível</h3>
+        <p class="footer-institution">Programa de Pós-Graduação em Ciência Política · Universidade Federal de Pernambuco (UFPE)</p>
+        <div class="footer-contact">
+          <a href="mailto:melo.farias@ufpe.br" class="footer-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+            melo.farias@ufpe.br
+          </a>
+          <span style="color: var(--clr-text-muted);">·</span>
+          <span style="color: var(--clr-text-muted);">Orientador: Prof. Dr. Rafael Mesquita de Souza Lima</span>
+        </div>
+        <p class="footer-copyright">© 2026 Ana Carolina G.M. Farias. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
